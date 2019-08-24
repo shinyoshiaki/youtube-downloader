@@ -6,5 +6,6 @@ module.exports = {
       };
     }
     return config;
-  }
+  },
+  routes: [{ src: "^/static/(.*)", dest: "/static/$1" }]
 };

@@ -9,6 +9,8 @@
     "serve": "yarn build && yarn start"
   },
   "dependencies": {
+    "@material-ui/core": "^4.3.3",
+    "@material-ui/styles": "^4.3.3",
     "fs": "^0.0.1-security",
     "next": "^9.0.4",
     "react": "^16.7.0",

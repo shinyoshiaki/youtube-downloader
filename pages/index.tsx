@@ -1,19 +1,13 @@
-import * as React from 'react'
-import Link from 'next/link'
-import Layout from '../components/Layout'
-import { NextPage } from 'next'
+import * as React from "react";
+import { NextPage } from "next";
+import { Button } from "@material-ui/core";
 
 const IndexPage: NextPage = () => {
   return (
-    <Layout title="Home | Next.js + TypeScript Example">
-      <h1>Hello Next.js 👋</h1>
-      <p>
-        <Link href="/about">
-          <a>About</a>
-        </Link>
-      </p>
-    </Layout>
-  )
-}
+    <div>
+      <Button>some</Button>
+    </div>
+  );
+};
 
-export default IndexPage
+export default IndexPage;

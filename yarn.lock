@@ -4073,6 +4073,11 @@ run-queue@^1.0.0, run-queue@^1.0.3:
   dependencies:
     aproba "^1.1.1"
 
+rx.mini@^0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/rx.mini/-/rx.mini-0.1.0.tgz#629d5e9b607719749ed037f3ce4bb8ebf99d5300"
+  integrity sha512-3WrnZZXHw1kW+joNeLqZoFZpNMg0VH6B9Z06moMW2XVi1PLe+TL2t5ZQ2Z1U6XCSmyZLLxPRKZi34s+iadt7yA==
+
 safe-buffer@5.1.2, safe-buffer@~5.1.0, safe-buffer@~5.1.1:
   version "5.1.2"
   resolved "https://registry.yarnpkg.com/safe-buffer/-/safe-buffer-5.1.2.tgz#991ec69d296e0313747d59bdfd2b745c35f8828d"

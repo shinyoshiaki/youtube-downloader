@@ -20,6 +20,9 @@ const WithInitialProps: NextPage<Props> = ({ items, pathname }) => (
         <a>Go home</a>
       </Link>
     </p>
+    <a href="/static/dl.mp4" download>
+      Click to download
+    </a>
   </Layout>
 );
 
@@ -29,10 +32,19 @@ WithInitialProps.getInitialProps = async ({ pathname }) => {
   const fs = await require("fs");
   const BASE_PATH = `https://www.youtube.com/watch?v=`;
 
-  const youtubeId = `some`;
+  const youtubeId = `o_LsbDb_a2g`;
   const url = BASE_PATH + youtubeId;
 
-  ytdl(url).pipe(fs.createWriteStream(`${youtubeId}.mp4`));
+  ytdl(url)
+    .on("response", (res: any) => {
+      console.log({ res });
+    })
+    .on("data", (data: Buffer) => {
+      console.log({ data });
+    })
+    .pipe(fs.createWriteStream(`${youtubeId}.mp4`));
+
+  fs.rename(`${youtubeId}.mp4`, `static/dl.mp4`, () => {});
 
   return { items, pathname };
 };

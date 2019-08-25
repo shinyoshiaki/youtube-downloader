@@ -20,13 +20,12 @@ export const download = async (youtubeId: string): Promise<Progress> => {
       const lock = `${youtubeId}.dl`;
       const file = `${youtubeId}.mp4`;
 
-      if (fs.existsSync(`static/${file}`)) {
-        r("completed");
-        return;
-      }
-
       if (!fs.existsSync(lock)) {
-        fs.writeFileSync(lock, "");
+        if (fs.existsSync(`static/${file}`)) {
+          r("completed");
+          return;
+        }
+
         ytdl(url)
           .on("response", () => {
             fs.rename(file, `static/${file}`, () => {
@@ -34,7 +33,10 @@ export const download = async (youtubeId: string): Promise<Progress> => {
               r("completed");
             });
           })
-          .on("data", () => {})
+          .on("data", (data: Buffer) => {
+            console.log("ondata", data.length);
+            fs.writeFileSync(lock, "");
+          })
           .pipe(fs.createWriteStream(file));
 
         setTimeout(() => {
@@ -53,9 +55,8 @@ export const finishDownload = async (youtubeId: string) => {
   const fs = await import("fs");
   const lock = `${youtubeId}.dl`;
   const file = `${youtubeId}.mp4`;
-  fs.rename(file, `static/${file}`, () => {
-    fs.unlinkSync(lock);
-  });
+  fs.copyFileSync(file, `static/${file}`);
+  fs.unlinkSync(lock);
 };
 
 export type Progress = "downloading" | "completed" | "fail";

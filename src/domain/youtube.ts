@@ -22,6 +22,7 @@ export const download = async (youtubeId: string): Promise<Progress> => {
 
       if (!fs.existsSync(lock)) {
         if (fs.existsSync(`static/${file}`)) {
+          fs.unlinkSync(file);
           r("completed");
           return;
         }

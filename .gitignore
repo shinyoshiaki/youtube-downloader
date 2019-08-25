@@ -2,3 +2,4 @@ node_modules
 .next
 *.mp4
 *.dl
+yarn.error.log

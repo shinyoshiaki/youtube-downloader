@@ -1,7 +1,6 @@
 import { NextPage } from "next";
 import { Button, Input } from "@material-ui/core";
 import useInput from "../src/hooks/useInput";
-// import Link from "next/link";
 
 type Props = {};
 

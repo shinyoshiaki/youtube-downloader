@@ -1,7 +1,7 @@
 import { NextPage } from "next";
 import { Button } from "@material-ui/core";
 import Link from "next/link";
-import { download, Progress } from "../src/domain/youtube";
+import { download, Progress, finishDownload } from "../src/domain/youtube";
 
 type Props = {
   status: Progress;
@@ -18,7 +18,14 @@ const DlPage: NextPage<Props> = ({ id, status }) => {
           </a>
         );
       case "downloading":
-        return <p>downloading</p>;
+        return (
+          <div>
+            <p>downloading</p>
+            <a href={`/dl?id=${id}&finish=true`}>
+              <Button>finish</Button>
+            </a>
+          </div>
+        );
       case "fail":
         return <p>fail</p>;
     }
@@ -35,7 +42,12 @@ const DlPage: NextPage<Props> = ({ id, status }) => {
 };
 
 DlPage.getInitialProps = async ({ query }) => {
-  let { id } = query as any;
+  let { id, finish } = query as any;
+
+  if (finish && id) {
+    await finishDownload(id);
+    return { status: "completed", id };
+  }
 
   if (id) {
     try {

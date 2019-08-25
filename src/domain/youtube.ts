@@ -49,4 +49,13 @@ export const download = async (youtubeId: string): Promise<Progress> => {
   });
 };
 
+export const finishDownload = async (youtubeId: string) => {
+  const fs = await import("fs");
+  const lock = `${youtubeId}.dl`;
+  const file = `${youtubeId}.mp4`;
+  fs.rename(file, `static/${file}`, () => {
+    fs.unlinkSync(lock);
+  });
+};
+
 export type Progress = "downloading" | "completed" | "fail";

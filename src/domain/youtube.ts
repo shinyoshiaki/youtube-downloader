@@ -13,7 +13,10 @@ export const download = async (youtubeId: string): Promise<Progress> => {
     })
   );
 
-  if (!exist) return "fail";
+  if (!exist) {
+    console.log({ exist });
+    return "fail";
+  }
 
   return await new Promise<Progress>(async r => {
     try {
@@ -22,7 +25,7 @@ export const download = async (youtubeId: string): Promise<Progress> => {
 
       if (!fs.existsSync(lock)) {
         if (fs.existsSync(`static/${file}`)) {
-          fs.unlinkSync(file);
+          if (fs.existsSync(file)) fs.unlinkSync(file);
           r("completed");
           return;
         }
@@ -47,6 +50,7 @@ export const download = async (youtubeId: string): Promise<Progress> => {
         r("downloading");
       }
     } catch (error) {
+      console.log({ error });
       r("fail");
     }
   });
